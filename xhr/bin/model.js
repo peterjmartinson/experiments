@@ -79,7 +79,7 @@
       return -1;
     }
     for (let i = 0; i < db.length; i++) {
-      if (db[i].id === item_id) return i;
+      if (db[i].id == item_id) return i;
     }
     return -1;
   }

@@ -32,12 +32,18 @@
   });
 
   app.get('/query:id', function(req, res) {
-    console.log("query called: " + req.params.id);
-    let item = model.readItem(req.params.id);
-    let file_name = __dirname + '/data/' + item.file_name;
-    console.log("file name: " + file_name);
-    fs.readFile(file_name, 'utf8', function(err, data) {
-      res.send(data);
+    model.readItem(req.params.id, function(response) {
+      if (response.success) {
+        res.send(response.item);
+        // let file_name = __dirname + '/data/' + response.item.file_name;
+        // console.log("file name: " + file_name);
+        // fs.readFile(file_name, 'utf8', function(err, data) {
+        //   res.send(data);
+        // });
+      }
+      else {
+        res.send('File Not Found');
+      }
     });
   });
 

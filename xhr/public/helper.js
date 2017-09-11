@@ -2,13 +2,13 @@
 
   'use strict';
 
-  function $get(doc, handle) {
+  function $get(route, handle) {
     let request = new XMLHttpRequest();
     if (!request) {
       console.log('Unable to create request.  Giving up.');
       return false;
     }
-    request.open('GET', doc);
+    request.open('GET', route);
     request.send();
     request.onreadystatechange = function() {
       if (request.readyState === 4) { // DONE
@@ -23,11 +23,11 @@
     }
   };
 
-  function $create(doc, params, handle) {};
+  function $create(route, params, handle) {};
 
-  function $update(doc, params, handle) {};
+  function $update(route, params, handle) {};
 
-  function $delete(doc, params, handle) {};
+  function $delete(route, params, handle) {};
 
   window.$get = $get;
 }());
