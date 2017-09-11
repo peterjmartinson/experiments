@@ -1,11 +1,19 @@
+/*jshint esversion:6 */
 window.onload = (function() {
 
   'use strict';
 
   let test_file = 'test.md';
+  let test_link = document.getElementById('link');
 
   window.$get('/file' + test_file, render);
 
+  test_link.addEventListener('click', sendQuery);
+
+  function sendQuery() {
+    window.$get('/query' + 1, render);
+  }
+    
   function render(response) {
     // Currently, this does a ghetto Markdown parse.
     // Replace this with a simple render that pumps
