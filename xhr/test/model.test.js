@@ -1,10 +1,16 @@
 /*jshint esversion:6 */
 let model = require('../bin/model');
-let db = require('../bin/mock_database');
+let db = require('../data/metadata');
 let assert = require('assert');
 
-let second_item = {id:2, item:'First test item'};
-let third_item = {id:3, item:'Second test item'};
+// initialize the test database
+for (let i = 0; i < db.length; i++) {
+  db.pop();
+}
+let first_item = {id:1, item:'First Test Item'};
+let second_item = {id:2, item:'Second test item'};
+let third_item = {id:3, item:'Third test item'};
+db.push(first_item);
 db.push(second_item);
 db.push(third_item);
 
@@ -30,6 +36,8 @@ describe('model.js - readAllItems()', function() {
   it('should return the whole database', function() {
     let dump = [];
     dump = model.readAllItems();
+    console.log("length: " + dump.length);
+    console.log("dump[1]: " + JSON.stringify(dump[1]));
     assert.equal(dump.length, 3);
     assert.equal(second_item, dump[1]);
   });
@@ -42,7 +50,7 @@ describe('model.js - readItem()', function() {
   });
 
   it('should respond gracefully to bad requests', function() {
-    let item = model.readItem(4);
+    let item = model.readItem(-7);
     assert.equal(item, 'Item not found');
   });
 });

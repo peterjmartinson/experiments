@@ -1,11 +1,13 @@
+/*jshint esversion:6, node:true */
 (function() {
   'use strict';
 
   const express    = require('express'),
         app        = express(),
-        port       = 3001,
+        port       = 3000,
         bodyParser = require('body-parser'),
-        fs         = require('fs');
+        fs         = require('fs'),
+        model      = require('./bin/model');
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
@@ -21,8 +23,18 @@
     res.send('index');
   });
 
+  // current ghetto way to grab the contents of a file.
   app.get('/file:file_name', function(req, res) {
-    let file_name = __dirname + '/public/' + req.params.file_name;
+    console.log('requested string: ' + req.params.file_name);
+    let file_name = __dirname + '/data/' + req.params.file_name;
+    fs.readFile(file_name, 'utf8', function(err, data) {
+      res.send(data);
+    });
+  });
+
+  app.get('/query:id', function(req, res) {
+    let item = readItem(req.params.id);
+    let file_name = __dirname + '/data/' + item.file_name;
     fs.readFile(file_name, 'utf8', function(err, data) {
       res.send(data);
     });
@@ -33,4 +45,4 @@
   });
 
 
-}())
+}());

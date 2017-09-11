@@ -3,7 +3,7 @@
 
   'use strict';
 
-  let db = require('./mock_database'),
+  let db = require('../data/metadata'),
       dbfunction = {};
 
   // todo: autopopulate the ID
