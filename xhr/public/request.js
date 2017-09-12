@@ -11,7 +11,7 @@ window.onload = (function() {
   test_link.addEventListener('click', sendQuery);
 
   function sendQuery() {
-    window.$get('/query' + 1, render);
+    window.$get('/query' + 2, render);
   }
     
   function render(response) {

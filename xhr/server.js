@@ -3,6 +3,7 @@
   'use strict';
 
   const express    = require('express'),
+        path       = require('path'),
         app        = express(),
         port       = 3000,
         bodyParser = require('body-parser'),
@@ -34,12 +35,10 @@
   app.get('/query:id', function(req, res) {
     model.readItem(req.params.id, function(response) {
       if (response.success) {
-        res.send(response.item);
-        // let file_name = __dirname + '/data/' + response.item.file_name;
-        // console.log("file name: " + file_name);
-        // fs.readFile(file_name, 'utf8', function(err, data) {
-        //   res.send(data);
-        // });
+        let file_name = path.join(__dirname, 'data', response.item.file_name);
+        fs.readFile(file_name, 'utf8', function(err, data) {
+          res.send(data);
+        });
       }
       else {
         res.send('File Not Found');
